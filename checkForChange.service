@@ -1,0 +1,16 @@
+[Unit]
+Description=CheckForChange
+After=network.target
+
+[Service]
+Type=simple
+User=user
+WorkingDirectory=/home/user/PRIVATE/productivitytools/checkForChange
+ExecStart=/usr/bin/pipenv run python /home/user/PRIVATE/productivitytools/checkForChange/checkForChange.py
+Restart=on-failure
+Environment="PIPENV_VENV_IN_PROJECT=1"
+Environment="DISPLAY=:0"
+Environment="DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus"
+
+[Install]
+WantedBy=default.target

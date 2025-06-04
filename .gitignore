@@ -1,0 +1,11 @@
+# Ignore local configuration overrides
+config.json.local
+
+# Ignore files starting with conts_, hash_, or debug_
+contents_*
+hash_*
+debug-*.log
+
+# Ignore Python dependency management files
+Pipfile
+Pipfile.lock

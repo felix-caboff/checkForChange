@@ -1,0 +1,5 @@
+requests
+beautifulsoup4
+plyer
+notify2
+dbus-python

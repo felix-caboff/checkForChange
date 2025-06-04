@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Google Global Homepage",
+    "short_name": "google_com",
+    "url": "https://www.google.com"
+  },
+  {
+    "name": "BBC's home page",
+    "short_name": "bbc_co_uk",
+    "url": "https://www.bbc.co.uk"
+  }
+]
