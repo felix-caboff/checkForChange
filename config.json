@@ -2,11 +2,13 @@
   {
     "name": "Google Global Homepage",
     "short_name": "google_com",
-    "url": "https://www.google.com"
+    "url": "https://www.google.com",
+    "html_tag_id": "tophf"
   },
   {
     "name": "BBC's home page",
     "short_name": "bbc_co_uk",
-    "url": "https://www.bbc.co.uk"
+    "url": "https://www.bbc.co.uk",
+    "html_tag_id": "global-navigation"
   }
 ]

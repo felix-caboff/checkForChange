@@ -46,7 +46,7 @@ def delete_old_logs(base_dir):
         logging.error(f"Error while deleting old log files: {e}")
 
 
-def get_page_content(url, tag_name):
+def get_page_content(url, tag_id):
     try:
         response = requests.get(url)
         response.raise_for_status()  # Raise an error if the request fails
@@ -56,9 +56,10 @@ def get_page_content(url, tag_name):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # Find the first occurrence of the tag
-        tag_content = soup.find(id=tag_name)
+        tag_content = soup.find(id=tag_id)
 
         if tag_content:
+            logging.debug(f"Tag <{tag_id}> found in the content.")
             start = tag_content.text.strip()[:300].strip()[:30].strip()
             end = tag_content.text.strip()[-300:].strip()[-30:].strip()
             logging.debug(f"First chunk: {start}")
@@ -66,7 +67,7 @@ def get_page_content(url, tag_name):
 
             return str(tag_content).strip()
         else:
-            logging.warning(f"Tag <{tag_name}> not found in the content.")
+            logging.warning(f"Tag <{tag_id}> not found in the content.")
             return None
     except requests.RequestException as e:
         logging.error(f"Error fetching content from {url}: {e}")
@@ -115,8 +116,8 @@ def show_notification(title, message):
     except Exception as e:
         logging.debug(f"Notification failed: {e}")
 
-def check_for_change(url, hash_file, page_name, contents_file):
-    content = get_page_content(url, 'content')
+def check_for_change(url, hash_file, page_name, contents_file, contents_tag_id):
+    content = get_page_content(url, contents_tag_id)
     if content is None:
         logging.error(f"Could not retrieve content from {url}, skipping check.")
         show_notification("checkForChange Alert", f"Unable to connect to {page_name}: will try again later")
@@ -149,7 +150,8 @@ def main(config):
         name = target.get('name')
         short_name = target.get('short_name')
         url = target.get('url')
-        check_for_change(url, f"hash_{short_name}", name, f"contents_{short_name}")
+        html_tag_id = target.get('html_tag_id')
+        check_for_change(url, f"hash_{short_name}", name, f"contents_{short_name}", html_tag_id)
     logging.info("Completed one cycle of web page checks.")
 
 if __name__ == "__main__":
