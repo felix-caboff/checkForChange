@@ -62,3 +62,13 @@ Install pipenv using your system package manager:
 Once in your project directory, install dependencies from requirements.txt using PipEnv:
 
 `pipenv install -r requirements.txt`
+
+## Install Systemd service
+
+```
+# EDIT the service file so that the paths reflect where you put it, for example, in /opt
+sudo cp checkForChange.service /etc/systemd/system/checkForChange.service
+sudo systemctl daemon-reload
+sudo systemctl enable checkForChange.service
+sudo systemctl start checkForChange.service
+```
